@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { from, observable, Observable, of } from 'rxjs';
+import { concat, from, observable, Observable, of } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -53,14 +54,42 @@ export class AppComponent implements OnInit {
   //     observer.complete();
   //   }, 7000);
   //});
-  array1 = [1, 2, 3, 4, 5];
+  array1 = [1, 2, 6, 7, 8];
   array2 = ['A', 'B', 'C'];
-  myObservable = of(this.array1, this.array2, 20, 45, 'hiiiii');
+  // myObservable = of(this.array1, this.array2, 20, 45, 'hiiiii');
+
   // myObservable = from(this.array1);
+  myObservable = from(this.array1).pipe(
+    map((val: any) => {
+      return val * 5;
+    }),
+    filter((val) => {
+      return val >= 30;
+    })
+  );
+
+  // transformedobs = this.myObservable.pipe(
+  //   map((val: any) => {
+  //     return val * 5;
+  //   }),
+  //   filter((val) => {
+  //     return val >= 30;
+  //   })
+  // );
+  // filteredobs = this.transformedobs.pipe(
+  //   filter((val) => {
+  //     return val >= 30;
+  //   })
+  // );
 
   ngOnInit() {
     // title = 'angular-observables';
     this.myObservable.subscribe(
+      //simple source observable
+      // this.filteredobs.subscribe( //filter fun use
+      //  when map fun use
+      // this.transformedobs.subscribe(
+      //  when map fun use
       (val: any) => console.log(val),
       (error: any) => alert('error msg'),
       () => alert('observer has complete and emit all value')
