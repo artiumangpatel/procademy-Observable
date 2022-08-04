@@ -1,0 +1,11 @@
+.container{
+
+    background-color:gray;
+    align-content: center;
+    width: 80%;
+    height: 60%;
+    margin-top: 10px;
+}
+.page-area{
+    background-color: aqua;
+}
