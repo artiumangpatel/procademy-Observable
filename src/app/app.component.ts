@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { concat, from, observable, Observable, of } from 'rxjs';
+import { concat, from, interval, observable, Observable, of } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { DataService } from './data.service';
 @Component({
@@ -10,7 +10,7 @@ import { DataService } from './data.service';
 })
 export class AppComponent implements OnInit {
   title = 'angular Observable';
-  constructor(private dataservice: DataService) {}
+  //constructor(private dataservice: DataService) {}
   //using observable constructor
   // myObservable = new Observable((observer: any) => {
   //   console.log('observable start');
@@ -58,8 +58,8 @@ export class AppComponent implements OnInit {
   //   }, 7000);
   //});
 
-  // array1 = [1, 2, 6, 7, 8];
-  // array2 = ['A', 'B', 'C'];
+  array1 = [1, 2, 6, 7, 8];
+  array2 = ['A', 'B', 'C'];
   // // myObservable = of(this.array1, this.array2, 20, 45, 'hiiiii');
 
   // // myObservable = from(this.array1);
@@ -86,7 +86,7 @@ export class AppComponent implements OnInit {
   //   })
   // );
 
-  // ngOnInit() {
+  // //ngOnInit() {
   //   // title = 'angular-observables';
   //   this.myObservable.subscribe(
   //     //simple source observable
@@ -99,5 +99,14 @@ export class AppComponent implements OnInit {
   //     () => alert('observer has complete and emit all value')
   //   );
   // }
-  ngOnInit() {}
+  counterSub: any;
+  counterObservable = interval(1000);
+  unSubScribe() {
+    this.counterSub.unsubscribe();
+  }
+  ngOnInit() {
+    this.counterSub = this.counterObservable.subscribe((val) => {
+      console.log(val);
+    });
+  }
 }
